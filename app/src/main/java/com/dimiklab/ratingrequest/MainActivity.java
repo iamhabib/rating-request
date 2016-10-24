@@ -12,6 +12,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         RatingDialog ratingDialog=new RatingDialog(MainActivity.this);
-        ratingDialog.displayDialog();
+        ratingDialog.register();
     }
 }
