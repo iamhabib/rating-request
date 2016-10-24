@@ -22,7 +22,7 @@ public class RatingDialog {
     TinyDB tinyDB;
     Context context;
     View v;
-    String yesButtonText="Yes!", doneButtonText="Already Done", laterButtonText="Later", titleText="ENJOYING THIS APP?\nPlease give us a review";
+    private int scheduleAfter=5;
 
     public RatingDialog(Context context) {
         this.context=context;
@@ -30,7 +30,7 @@ public class RatingDialog {
         tinyDB=new TinyDB(context);
     }
 
-    public void displayDialog(){
+    public void register(){
         if(!isDisableDialog()){
             showDialog(v);
         }else if(isLaterEnable()){
@@ -39,6 +39,30 @@ public class RatingDialog {
             }
         }
 
+    }
+
+    public void setYesButtonText(String yesButtonText){
+        Button yesBtn=(Button)v.findViewById(R.id.btn_yes);
+        yesBtn.setText(yesButtonText);
+    }
+
+    public void setDoneButtonText(String doneButtonText) {
+        Button doneBtn=(Button)v.findViewById(R.id.btn_done);
+        doneBtn.setText(doneButtonText);
+    }
+
+    public void setLaterButtonText(String laterButtonText) {
+        Button laterBtn=(Button)v.findViewById(R.id.btn_later);
+        laterBtn.setText(laterButtonText);
+    }
+
+    public void setTitleText(String titleText) {
+        TextView title=(TextView)v.findViewById(R.id.tv_title);
+        title.setText(titleText);
+    }
+
+    public void setScheduleAfter(int scheduleAfter) {
+        this.scheduleAfter = scheduleAfter;
     }
 
     private boolean isDisableDialog(){
@@ -52,7 +76,7 @@ public class RatingDialog {
     private String getNextDate() {
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_YEAR, 5);
+        calendar.add(Calendar.DAY_OF_YEAR, scheduleAfter);
         return format1.format(calendar.getTime());
     }
 
@@ -66,11 +90,6 @@ public class RatingDialog {
         Button btn_yes=(Button)v.findViewById(R.id.btn_yes);
         Button btn_done=(Button)v.findViewById(R.id.btn_done);
         Button btn_later=(Button)v.findViewById(R.id.btn_later);
-        TextView title=(TextView)v.findViewById(R.id.tv_title);
-        title.setText(titleText);
-        btn_yes.setText(yesButtonText);
-        btn_done.setText(doneButtonText);
-        btn_later.setText(laterButtonText);
 
         final AlertDialog ratingDialog=new AlertDialog.Builder(context)
                 .setView(view)
