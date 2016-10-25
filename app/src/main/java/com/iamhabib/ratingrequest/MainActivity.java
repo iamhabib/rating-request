@@ -1,10 +1,10 @@
-package com.dimiklab.ratingrequest;
+package com.iamhabib.ratingrequest;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.dimiklab.ratingrequestlibrary.RatingRequest;
+import com.iamhabib.ratingrequestlibrary.RatingRequest;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,17 +14,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         RatingRequest.with(MainActivity.this)
-                .message("Hello !!!")
-                .scheduleAfter(1)
-                .yesButtonText("OK")
-                .yesButtonTextColor(Color.RED)
+                .scheduleAfter(7)
+                .yesButtonText("Sure!")
                 .delay(20*1000)
                 .register();
-    }
-
-    @Override
-    public void onBackPressed() {
-       // RatingRequest.cancel();
-        super.onBackPressed();
     }
 }

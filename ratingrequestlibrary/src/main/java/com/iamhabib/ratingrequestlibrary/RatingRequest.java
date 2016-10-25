@@ -1,4 +1,4 @@
-package com.dimiklab.ratingrequestlibrary;
+package com.iamhabib.ratingrequestlibrary;
 
 import android.app.Activity;
 import android.content.Context;
@@ -62,13 +62,18 @@ public class RatingRequest {
                             .create();
                     ratingDialog.show();
 
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean("isLaterEnable", true);
+                    editor.putString("later_date", getNextDate(1));
+                    editor.commit();
+
                     btn_yes.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=" + context.getPackageName());
                             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                             SharedPreferences.Editor editor = settings.edit();
-                            editor.putBoolean("isEnableDialog", true);
+                            editor.putBoolean("isLaterEnable", true);
                             editor.commit();
                             context.startActivity(intent);
                             ratingDialog.dismiss();
@@ -79,7 +84,7 @@ public class RatingRequest {
                         @Override
                         public void onClick(View v) {
                             SharedPreferences.Editor editor = settings.edit();
-                            editor.putBoolean("isEnableDialog", false);
+                            editor.putBoolean("isLaterEnable", false);
                             editor.commit();
                             ratingDialog.dismiss();
                         }
@@ -89,9 +94,8 @@ public class RatingRequest {
                         @Override
                         public void onClick(View v) {
                             SharedPreferences.Editor editor = settings.edit();
-                            editor.putBoolean("isEnableDialog", false);
                             editor.putBoolean("isLaterEnable", true);
-                            editor.putString("later_date", getNextDate());
+                            editor.putString("later_date", getNextDate(scheduleAfter));
                             editor.commit();
                             ratingDialog.dismiss();
                         }
@@ -100,10 +104,10 @@ public class RatingRequest {
             };
         }
 
-        private String getNextDate() {
+        private String getNextDate(int days) {
             SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
             Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.DAY_OF_YEAR, scheduleAfter);
+            calendar.add(Calendar.DAY_OF_YEAR, days);
             return format1.format(calendar.getTime());
         }
 
@@ -181,10 +185,13 @@ public class RatingRequest {
         }
 
         public Builder register() {
-            if (settings.getBoolean("isEnableDialog", true)) {
+            if (settings.getBoolean("isLaterEnable", false) && getTodayDate().equalsIgnoreCase(settings.getString("later_date", ""))) {
                 dismissHandler.postDelayed(dismissRunnable, delayTime);
-            } else if (settings.getBoolean("isLaterEnable", false) && getTodayDate().equalsIgnoreCase(settings.getString("later_date", ""))) {
+            }else if(settings.getBoolean("isFirstTime", true)){
                 dismissHandler.postDelayed(dismissRunnable, delayTime);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean("isFirstTime", false);
+                editor.commit();
             }
             return this;
         }

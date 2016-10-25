@@ -1,4 +1,4 @@
-package com.dimiklab.ratingrequestlibrary;
+package com.iamhabib.ratingrequestlibrary;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
