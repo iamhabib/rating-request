@@ -1,9 +1,10 @@
 package com.dimiklab.ratingrequest;
 
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-import com.dimiklab.ratingrequestlibrary.RatingDialog;
+import com.dimiklab.ratingrequestlibrary.RatingRequest;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,7 +12,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RatingDialog ratingDialog=new RatingDialog(MainActivity.this);
-        ratingDialog.register();
+
+        RatingRequest.with(MainActivity.this)
+                .message("Hello !!!")
+                .scheduleAfter(1)
+                .yesButtonText("OK")
+                .yesButtonTextColor(Color.RED)
+                .delay(20*1000)
+                .register();
+    }
+
+    @Override
+    public void onBackPressed() {
+       // RatingRequest.cancel();
+        super.onBackPressed();
     }
 }
