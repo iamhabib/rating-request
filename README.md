@@ -20,13 +20,32 @@ dependencies {
 Easy way to show the dialog:
 
 ```groovy
-RatingRequest.with(getApplicationContext())
+RatingRequest.with(this)
                 .scheduleAfter(7) // invoke when later button click, default 5
-                .yesButtonText("Sure!")
+                .agreeButtonText("Sure!")
+                .laterButtonSeletor(R.drawable.button_accept)
                 .laterButtonText("Later")
                 .doneButtonText("Already Done")
+                .backgroundResource(R.color.colorPrimary)
                 .message("Are you enjoying our app?\n Please give us a review")
-                .delay(20*1000) // default 100 milli second
+                .listener(new RatingRequest.ClickListener() {
+                    @Override
+                    public void onAgreeButtonClick() {
+
+                    }
+
+                    @Override
+                    public void onDoneButtonClick() {
+                        Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onLaterButtonClick() {
+
+                    }
+                })
+                .cancelable(false) // default true
+                .delay(10 * 1000) // after 10 second dialog will be shown, default 1000 milliseconds
                 .register();
 ```
 
