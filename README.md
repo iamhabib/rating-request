@@ -10,7 +10,7 @@ Add below line in app ```build.gradle```
  
 ```gradle
 dependencies {
-	compile 'com.iamhabib:rating-request:1.0.0'
+	compile 'com.iamhabib:rating-request:1.0.1'
 }
 ```
 
