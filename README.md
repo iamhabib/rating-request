@@ -21,7 +21,7 @@ Easy way to show the dialog:
 
 ```groovy
 RatingRequest.with(this)
-                .scheduleAfter(7) // invoke when later button click, default 5
+                .scheduleAfter(7) // invoke when later button click, default 5 days
                 .agreeButtonText("Sure!")
                 .laterButtonSeletor(R.drawable.button_accept)
                 .laterButtonText("Later")
