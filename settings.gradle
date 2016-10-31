@@ -1,1 +1,1 @@
-include ':app', ':ratingrequestlibrary'
+include ':app', ':rating-request'
